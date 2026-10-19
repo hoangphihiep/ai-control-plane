@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: aicontrol
+
+  datasource:
+    url: jdbc:postgresql://localhost:5433/aicontrol?options=-c%20TimeZone=Asia/Ho_Chi_Minh
+    username: aicontrol_user
+    password: ${DB_PASSWORD}
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+
+  flyway:
+    enabled: true
