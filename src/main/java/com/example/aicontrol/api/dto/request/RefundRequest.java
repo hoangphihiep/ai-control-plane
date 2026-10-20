@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 
 public record RefundRequest(
         @NotBlank(message = "Mã đơn hàng không được để trống")
+        @Pattern(regexp = "^[A-Za-z0-9-]{1,64}$", message = "Mã đơn hàng chỉ gồm chữ cái, số, dấu gạch ngang và tối đa 64 ký tự")
         String orderId,
 
         @NotNull(message = "Số tiền hoàn không được để trống")

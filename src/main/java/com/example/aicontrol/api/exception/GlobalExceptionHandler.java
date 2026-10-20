@@ -1,5 +1,6 @@
 package com.example.aicontrol.api.exception;
 
+import com.example.aicontrol.controlplane.sanitizer.SuspiciousInputException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -35,6 +36,13 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleHttpMessageNotReadable(HttpMessageNotReadableException ex) {
         // Xử lý khi body request không thể phân tích (JSON hỏng / sai cú pháp)
         ErrorResponse response = new ErrorResponse("MALFORMED_REQUEST", List.of());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+    }
+
+    @ExceptionHandler(SuspiciousInputException.class)
+    public ResponseEntity<ErrorResponse> handleSuspiciousInput(SuspiciousInputException ex) {
+        // Phản hồi trung tính cho request nghi ngờ tấn công (REQUEST_REJECTED), không làm lộ chi tiết quy tắc
+        ErrorResponse response = new ErrorResponse("REQUEST_REJECTED", List.of());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
     }
 

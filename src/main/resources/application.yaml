@@ -3,6 +3,10 @@ spring:
     name: aicontrol
 
   datasource:
+    # Cổng 5433: Ánh xạ cổng host 5433 sang cổng container 5432 (theo docker-compose.yml) 
+    # nhằm tránh xung đột với dịch vụ PostgreSQL mặc định (port 5432) nếu đã có trên máy host.
+    # TimeZone=Asia/Ho_Chi_Minh: Thiết lập múi giờ session của PostgreSQL theo giờ Việt Nam (UTC+7)
+    # để đảm bảo tính nhất quán dữ liệu ngày giờ của các giao dịch hoàn tiền giữa DB và ứng dụng.
     url: jdbc:postgresql://localhost:5433/aicontrol?options=-c%20TimeZone=Asia/Ho_Chi_Minh
     username: aicontrol_user
     password: ${DB_PASSWORD}
